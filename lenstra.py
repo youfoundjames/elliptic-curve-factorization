@@ -1,5 +1,40 @@
 import numpy as np
 
+# BORING FUNCTIONS USED IN LENSTRA:
+
+def EEA(a, b): # EXTENDED EUCLIDEAN ALGORITHM
+    if b == 0:
+        return 1, 0, a
+
+    r1, r2, gcd = EEA(b, a % b)
+    s1 = r2
+    s2 = r1 - (a // b) * r2
+
+    return s1, s2, gcd
+
+def fastExp(base, power, modulus): # FAST (MODULAR) EXPONENTIATION
+    result = 1
+    base %= modulus
+
+    while power > 0:
+        # If the power is odd, multiply the base to the result
+        if power % 2 == 1:
+            result = (result * base) % modulus
+
+        # Square the base and halve the power
+        base = (base * base) % modulus
+        power //= 2
+
+    return result
+
+def getInverse(a,m): # FINDING MULTIPLICATIVE INVERSES MOD m
+    (r,s,gcd) = EEA(a,m)
+    if gcd != 1:
+        raise Exception('a is not a unit!')
+    return r
+
+# ELLIPTIC CURVE FUNCTIONS:
+
 def EC_addition(E,P,Q):
 # E = [A,B,p] corresponds to y^2 = x^3+Ax+B modulo p
 # P,Q are points which are inputted as [x,y]
@@ -74,8 +109,8 @@ def EC_fast_multiplication(E,P,n):
         return terms
     
     terms = point_doubler(P,k)
-    actualTermsToSum = [a * b for a, b in zip(expansion, terms)] 
-    actualTermsToSum = [term for term in actualTermsToSum if term] 
+    actualTermsToSum = [a * b for a, b in zip(expansion, terms)] #multiply the ith element of expansion by the ith element of terms
+    actualTermsToSum = [term for term in actualTermsToSum if term] #remove empty arrays which appear when that point is "zeroed" out
 
     accumulator = actualTermsToSum[0]
     for term in actualTermsToSum[1:]:
