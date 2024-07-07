@@ -6,6 +6,6 @@ Lenstra's elliptic curve algorithm is the third-fastest known algorithm for gene
 
 I found a couple of interesting results, but only on semiprimes small enough to run on my computer, which may not reflect cryptographic qualities at scale. Nonetheless, these results in particular were:
 - The relationship between the max iterations on a particular curve and number of elliptic curves generated can be exploited, especially when computational cost is an issue. Given a particular randomly generated elliptic curve, it might be beneficial to only perform a fairly small number of point additions on the curve before "giving up" on that curve and generating a new one, since some classes of elliptic curves tend to find a prime factor very quickly or not at all.
-- Factorial is the best of the three generating functions I tried over "general purpose" elliptic curves of the form $y^2 ≡ x^3 + ax + b \mod n$ (i.e. when $b\neq 0$.)
-- A generating function that I thought was really bad ($2^k$ for integer $k$) ended up finding prime factorizations very efficiently on a special class of elliptic curves, namely of the form $y^2 ≡ x^3 + ax \mod n$ (i.e. when $b=0$.)
+- Factorial is the most effective of the three generating functions I tried over "general purpose" elliptic curves of the form $y^2 ≡ x^3 + ax + b \mod n$ (i.e. when $b\neq 0$) for finding prime factors of big numbers.
+- A generating function that I thought was really bad ($2^k$ for integer $k$) ended up finding prime factorizations very efficiently over a special class of elliptic curves, namely of the form $y^2 ≡ x^3 + ax \mod n$ (i.e. when $b=0$.)
 - We are probably safe to keep using RSA and ECC.
