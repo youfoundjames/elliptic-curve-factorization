@@ -1,7 +1,5 @@
 import numpy as np
 
-# BORING FUNCTIONS USED IN LENSTRA:
-
 def EEA(a, b): # EXTENDED EUCLIDEAN ALGORITHM
     if b == 0:
         return 1, 0, a
